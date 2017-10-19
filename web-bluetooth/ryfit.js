@@ -1,3 +1,6 @@
+async function onButtonClick() {
+  try {
+
 let chosenHeartRateService = null;
 
 navigator.bluetooth.requestDevice({
@@ -14,7 +17,10 @@ navigator.bluetooth.requestDevice({
   ]);
 });
 
-
+  } catch(error) {
+    log('Argh! ' + error);
+  }
+}
 
 function handleHeartRateMeasurementCharacteristic(characteristic) {
   return characteristic.startNotifications()
