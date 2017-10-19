@@ -11,6 +11,10 @@ async function onStartButtonClick() {
     characteristicUuid = parseInt(characteristicUuid);
   }
 
+  serviceUuid = '0000ffe0-0000-1000-8000-00805f9b34fb';
+  characteristicUuid = '0000ffe1-0000-1000-8000-00805f9b34fb';
+  
+  
   try {
     log('Requesting Bluetooth Device...');
     const device = await navigator.bluetooth.requestDevice({
