@@ -78,14 +78,14 @@ var characteristic = myCharacteristic;
   if (result == "f8") {
       let array = new Uint8Array([0xfa,0xf8,0xae,0x15,0x26,0x21]);
       return characteristic.writeValue(array).then(() => {
-            console.log('< faf8ae152621');});
+            log('< faf8ae152621');});
   } else if (result == "fbf8") {
       let array = new Uint8Array([0xa1,0x5a]);
       return characteristic.writeValue(array).then(() => {
-            console.log('< a15a');});
+            log('< a15a');});
   } else if (result.substring(0,2) == "d2") {
       let array = new Uint8Array([0xc0,0x09,0x82,0x29,0x01]);
       return characteristic.writeValue(array).then(() => {
-            console.log('< c009822901');});
+            log('< c009822901');});
   }
 }
