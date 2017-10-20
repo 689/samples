@@ -87,5 +87,13 @@ var characteristic = myCharacteristic;
       let array = new Uint8Array([0xc0,0x09,0x82,0x29,0x01]);
       return characteristic.writeValue(array).then(() => {
             log('< c009822901');});
-  }
+  } else if (result.substring(0,6) == "d00201") {
+      let array = new Uint8Array([0xfa,0xd0,0x02,0x01]);
+      return characteristic.writeValue(array).then(() => {
+            log('< fad00201');});
+  } else if (result.substring(0,6) == "d00202") {
+            let array = new Uint8Array([0xfa,0xd0,0x02,0x02]);
+            return characteristic.writeValue(array).then(() => {
+                  log('< fad00202');});
+   }          
 }
