@@ -13,8 +13,8 @@ async function onStartButtonClick() {
 
   serviceUuid = '0000ffe0-0000-1000-8000-00805f9b34fb';
   characteristicUuid = '0000ffe1-0000-1000-8000-00805f9b34fb';
-  
-  
+
+
   try {
     log('Requesting Bluetooth Device...');
     const device = await navigator.bluetooth.requestDevice({
@@ -62,9 +62,9 @@ function handleNotifications(event) {
     a.push('0x' + ('00' + value.getUint8(i).toString(16)).slice(-2));
   }
   log('> ' + a.join(' '));
-  
-  
-   var result = '';
+
+
+  var result = '';
   var v;
 
   for (var i = 0; i < value.byteLength; i++) {
@@ -76,7 +76,13 @@ function handleNotifications(event) {
 var characteristic = myCharacteristic;
 
   if (result == "f8") {
-      let array = new Uint8Array([0xfa,0xf8,0xae,0x15,0x26,0x21]);
+
+      var d = ( Date.now() / 1000) - 946656000;
+      var b = new ArrayBuffer(4);
+      var dv = new DataView(b);
+      dv.setUint32(0, d);
+      let array = new Uint8Array([0xfa,0xf8,dv.getUint8(6),dv.getUint8(4),dv.getUint8(2),dv.getUint8(0)]);
+    //  let array = new Uint8Array([0xfa,0xf8,0xae,0x15,0x26,0x21]);
       return characteristic.writeValue(array).then(() => {
             log('< faf8ae152621');});
   } else if (result == "fbf8") {
@@ -88,12 +94,36 @@ var characteristic = myCharacteristic;
       return characteristic.writeValue(array).then(() => {
             log('< c009822901');});
   } else if (result.substring(0,6) == "d00201") {
+      var d         = new Date((value.getUint32(0,1) + 946656000)*1000);
+      var weight    = value.getUint16(8) / 10.0;
+      var fat       = value.getUint16(10) / 10.0;
+      var water     = value.getUint16(12) / 10.0;
+      log("checkdate:"+d.toSting);
+      log("checkdate:"+d.toISOSting);
+      log("checkdate:"+d.valueof());
+      log("weight:"+weight);
+      log("fat:"+fat);
+      log("water:"+water);
       let array = new Uint8Array([0xfa,0xd0,0x02,0x01]);
       return characteristic.writeValue(array).then(() => {
             log('< fad00201');});
   } else if (result.substring(0,6) == "d00202") {
+      var muscle    = value.getUint16(4) / 10.0;
+      var bone      = value.getUint16(6) / 10.0;
+      var metabolism= value.getUint16(8);
+      var skinfat   = value.getUint16(10) / 10.0;
+      var offalfat  = value.getUint8(12) / 10.0;
+      var bodyage   = value.getUint8(13) / 10.0;
+      log("muscle:"+muscle);
+      log("bone:"+bone);
+      log("metabolism:"+metabolism);
+      log("skinfat:"+skinfat);
+      log("offalfat:"+ofaalfat);
+      log("bodyage:"+bodyage);
             let array = new Uint8Array([0xfa,0xd0,0x02,0x02]);
             return characteristic.writeValue(array).then(() => {
                   log('< fad00202');});
-   }          
+   }
+
+
 }
