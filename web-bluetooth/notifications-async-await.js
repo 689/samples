@@ -1,4 +1,5 @@
 var myCharacteristic;
+    var d2=0;
 
 async function onStartButtonClick() {
   let serviceUuid = document.querySelector('#service').value;
@@ -32,7 +33,7 @@ async function onStartButtonClick() {
     await myCharacteristic.startNotifications();
 
     log('> Notifications started');
-    var d2=0;
+
     myCharacteristic.addEventListener('characteristicvaluechanged',
         handleNotifications);
   } catch(error) {
