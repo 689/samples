@@ -117,7 +117,7 @@ function handleNotifications(event) {
   }
 
 var characteristic = myCharacteristic;
-
+var d2=0;
   if (result == "f8") {
 
       var d = ( Date.now() / 1000) - 946656000;
@@ -132,7 +132,8 @@ var characteristic = myCharacteristic;
       let array = new Uint8Array([0xa1,0x5a]);
       return characteristic.writeValue(array).then(() => {
             log('< a15a');});
-  } else if (result.substring(0,2) == "d2") {
+  } else if (result.substring(0,2) == "d2" && !d2) {
+      d2++;
       let array = new Uint8Array([0xc0,0x09,0x82,0x29,0x01]);
       return characteristic.writeValue(array).then(() => {
             log('< c009822901');});
