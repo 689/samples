@@ -94,6 +94,8 @@ function userInfo() {
 }
 
 function handleNotifications(event) {
+  
+  try {
   let value = event.target.value;
   let a = [];
   // Convert raw data bytes to hex values just for the sake of showing something.
@@ -165,6 +167,8 @@ var characteristic = myCharacteristic;
             return characteristic.writeValue(array).then(() => {
                   log('< fad00202');});
    }
-
+  } catch (error) {
+      log('Argh! ' + error);
+    }
 
 }
