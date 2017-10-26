@@ -95,7 +95,7 @@ function userInfo() {
 
 function handleNotifications(event) {
   
-  try {
+
   let value = event.target.value;
   let a = [];
   // Convert raw data bytes to hex values just for the sake of showing something.
@@ -106,7 +106,7 @@ function handleNotifications(event) {
   }
   log('> ' + a.join(' '));
 
-
+  try {
   var result = '';
   var v;
 
