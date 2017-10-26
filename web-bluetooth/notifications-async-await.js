@@ -32,6 +32,7 @@ async function onStartButtonClick() {
     await myCharacteristic.startNotifications();
 
     log('> Notifications started');
+    var d2=0;
     myCharacteristic.addEventListener('characteristicvaluechanged',
         handleNotifications);
   } catch(error) {
@@ -117,7 +118,7 @@ function handleNotifications(event) {
   }
 
 var characteristic = myCharacteristic;
-var d2=0;
+
   if (result == "f8") {
 
       var d = ( Date.now() / 1000) - 946656000;
@@ -138,7 +139,7 @@ var d2=0;
       return characteristic.writeValue(array).then(() => {
             log('< c009822901');});
   } else if (result.substring(0,6) == "d00201") {
-      var d         = new Date((value.getUint32(0,1) + 946656000)*1000);
+      var d         = new Date((value.getUint32(1,1) + 946656000)*1000);
       var weight    = value.getUint16(8) / 10.0;
       var fat       = value.getUint16(10) / 10.0;
       var water     = value.getUint16(12) / 10.0;
@@ -162,7 +163,7 @@ var d2=0;
       log("bone:"+bone);
       log("metabolism:"+metabolism);
       log("skinfat:"+skinfat);
-      log("offalfat:"+ofaalfat);
+      log("offalfat:"+offalfat);
       log("bodyage:"+bodyage);
             let array = new Uint8Array([0xfa,0xd0,0x02,0x02]);
             return characteristic.writeValue(array).then(() => {
