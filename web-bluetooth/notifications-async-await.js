@@ -124,7 +124,7 @@ var characteristic = myCharacteristic;
       var b = new ArrayBuffer(4);
       var dv = new DataView(b);
       dv.setUint32(0, d);
-      let array = new Uint8Array([0xfa,0xf8,dv.getUint8(6),dv.getUint8(4),dv.getUint8(2),dv.getUint8(0)]);
+      let array = new Uint8Array([0xfa,0xf8,dv.getUint8(3),dv.getUint8(2),dv.getUint8(1),dv.getUint8(0)]);
     //  let array = new Uint8Array([0xfa,0xf8,0xae,0x15,0x26,0x21]);
       return characteristic.writeValue(array).then(() => {
             log('< faf8ae152621');});
