@@ -140,7 +140,7 @@ var characteristic = myCharacteristic;
       return characteristic.writeValue(array).then(() => {
             log('< c009822901');});
   } else if (result.substring(0,6) == "d00201") {
-      var d         = new Date((value.getUint32(1,1) + 946656000)*1000);
+      var d         = new Date((value.getUint32(4,1) + 946656000)*1000);
       var weight    = value.getUint16(8) / 10.0;
       var fat       = value.getUint16(10) / 10.0;
       var water     = value.getUint16(12) / 10.0;
