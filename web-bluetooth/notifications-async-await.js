@@ -69,15 +69,13 @@ function userInfo() {
 
     var u = {
     "users": [
-        { "name":"Tony", "userid":0, "height":160, "sex":1, "bod":"1948/12/19"  },
-         { "name":"Y", "userid":1, "height":165, "sex":1, "bod":"1948/12/19"   },
-         { "name":"Amy", "userid":2, "height":160, "sex":0, "bod":"1948/12/19"   }
+        { "name":"Tony", "userid":0, "height":160, "sex":1, "bod":"1948/12/01"  },
+         { "name":"Y", "userid":1, "height":165, "sex":1, "bod":"1975/08/01"   },
+         { "name":"Amy", "userid":2, "height":150, "sex":0, "bod":"1948/04/01"   }
     ]
     };
 
     let userId = document.querySelector('#userId').value;
-    var buffer = new ArrayBuffer(5);
-    var dv = new DataView(buffer);
 
     if (userId == 4) {
 
@@ -87,22 +85,14 @@ function userInfo() {
 
     } else {
 
-        var b = new Date(u.users[userId].bod);
-        var c = new Date();
-        var age = Math.floor((c-b)/31557600000);
+        var age = getAge(u.users[userId].bod);
         var height = u.users[userId].height;
         var sex = u.users[userId].sex;
 
 
     }
 
-    dv.setUint8(0, 0xc0);
-    dv.setUint8(1, 0x09);
-    dv.setUint8(2, height);
-    dv.setUint8(3, age);
-    dv.setUint8(4, sex);
-
-    return dv;
+    return [0xc0,0x09,height,age,sex];
 
 }
 
@@ -147,6 +137,7 @@ var characteristic = myCharacteristic;
             log('< a15a');});
   } else if (result.substring(0,2) == "d2" && !d2) {
       d2++;
+      //let array = new Unit8Array(userInfo());
       let array = new Uint8Array([0xc0,0x09,0x82,0x29,0x01]);
       return characteristic.writeValue(array).then(() => {
             log('< c009822901');});
