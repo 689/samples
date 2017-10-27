@@ -137,7 +137,7 @@ var characteristic = myCharacteristic;
             log('< a15a');});
   } else if (result.substring(0,2) == "d2" && !d2) {
       d2++;
-      //let array = new Unit8Array(userInfo());
+      //let array = new Uint8Array(userInfo());
       let array = new Uint8Array([0xc0,0x09,0x82,0x29,0x01]);
       return characteristic.writeValue(array).then(() => {
             log('< c009822901');});
